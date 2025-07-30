@@ -13,7 +13,7 @@ const Home: React.FC = () => {
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Blank</IonTitle>
+            <IonTitle size="large" className='bg-sky-400 text-white' >Blank</IonTitle>
           </IonToolbar>
         </IonHeader>
         <ExploreContainer />
