@@ -1,0 +1,37 @@
+.signButton {
+    --background: #F5BC55;
+    --color: #2B4D3F;
+    font-weight: 700;
+}
+
+.signButton-clicked {
+    --background: #2B4D3F;
+    font-weight: 700;
+    --color: white;
+}
+
+.googleButton {
+    --background: #2B4D3F;
+    --color: white;
+    font-weight: 700;
+}
+
+.googleButton-clicked {
+    --background: #F5BC55;
+    font-weight: 700;
+    --color: #2B4D3F;
+}
+
+.myText {
+    margin: 30px;
+    --color: #2B4D3F;
+    font-weight: 400;
+}
+
+.line {
+  width: 40px;
+  height: 0;
+  border: 1px solid #686565;
+  margin: 5px;
+  display:inline-block;
+}
