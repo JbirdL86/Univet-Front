@@ -1,0 +1,75 @@
+/* Signup.css */
+
+.fullscreen-popover::part(content) {
+  /* Position the popover absolutely to the viewport */
+  position: fixed; 
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box; 
+  
+  /* Make this container a flexbox parent */
+  display: flex;
+  flex-direction: column;
+
+  /* Apply the padding to the parent */
+  padding: 20px;
+  border-radius: 0;
+  box-shadow: none;
+
+  /* Hide all overflow on the container */
+  overflow: hidden !important;
+}
+
+/* This is the key change! Force IonContent to shrink and remove all padding */
+.fullscreen-popover ion-content {
+  flex: 1; /* Stretch to fill the available height */
+  flex-shrink: 1; /* Explicitly allow it to shrink */
+  display: flex;
+  flex-direction: column;
+  
+  /* Force min-height to 0 to allow shrinking */
+  min-height: 0 !important;
+  --min-height: 0 !important;
+
+  /* Use !important to force no scrolling on IonContent */
+  --overflow: hidden !important;
+  overflow: hidden !important;
+
+  /* Remove all padding */
+  --padding-start: 0 !important;
+  --padding-end: 0 !important;
+  --padding-top: 0 !important;
+  --padding-bottom: 0 !important;
+}
+
+/* Make the IonList fill the content and remove its padding */
+.fullscreen-popover ion-list {
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  --padding-start: 0 !important;
+  --padding-end: 0 !important;
+  --padding-top: 0 !important;
+  --padding-bottom: 0 !important;
+}
+
+/* Each IonItem will now stretch equally and allow shrinking */
+.fullscreen-popover ion-item {
+  flex-grow: 1; 
+  flex-shrink: 1;
+  min-height: 0 !important;
+  --min-height: 0 !important;
+
+  /* Use flexbox to center content vertically */
+  display: flex;
+  align-items: center; 
+}
+
+/* Ensure the backdrop covers the whole screen */
+.fullscreen-popover::part(backdrop) {
+  display: block;
+}
