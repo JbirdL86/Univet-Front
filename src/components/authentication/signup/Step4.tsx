@@ -2,11 +2,16 @@ import { IonText, IonContent, IonImg, IonButton } from '@ionic/react';
 import appLogo from '../../../assets/images/app-logo.jpg';
 import { useHistory } from 'react-router';
 
-interface Step3Props {
+// Change the Step4Props interface to use the information gathered in previous steps
+// You can pass this information inside the Signup.tsx component and then pass it down to Step4 as props.
+interface Step4Props {
   onNext: () => void;
+  onPrev: () => void;
 }
 
-const Step3: React.FC<Step3Props> = ({ onNext }) => {
+const Step4: React.FC<Step4Props> = ({ onNext, onPrev }) => {
+  // Here is where you are submitting the form.
+  // You don't need another file for the form, you can build the form directly in this component.
   const history = useHistory();
 
   return (
@@ -34,4 +39,4 @@ const Step3: React.FC<Step3Props> = ({ onNext }) => {
   )
 }
 
-export default Step3;
+export default Step4;
