@@ -1,0 +1,32 @@
+/* Signup.css */
+
+.fullscreen-popover::part(content) {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 90%;
+  height: 100hv;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  border-radius: 0;
+  box-shadow: none;
+  max-height: 100%;
+}
+
+ion-label {
+  margin-bottom: 5px;
+}
+
+ion-input {
+  margin-top: 8px;
+  padding-top: 7px;
+
+}
+
+native-wrapper {
+  margin-top: 5px;
+}
