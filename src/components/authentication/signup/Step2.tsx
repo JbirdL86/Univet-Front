@@ -1,7 +1,6 @@
 import { IonText, IonContent, IonButton, IonImg } from '@ionic/react';
 import vetImage from '../../../assets/images/veterinarian.jpeg';
 import clientImage from '../../../assets/images/client.jpeg';
-import { useHistory } from 'react-router';
 
 interface Step2Props {
   onNext: () => void;
@@ -10,17 +9,7 @@ interface Step2Props {
 }
 
 const Step2: React.FC<Step2Props> = ({ onPrev,onNext, setUserType }) => {
-  // When you click on veterinarian image, you should set a state inside Signup.tsx component to indicate that the user is a veterinarian.
-  // When you click on client image, you should set a state inside Signup.tsx component to indicate that the user is a client.
-
-  // Use setUserType to set the user type based on the image clicked.
-
-
-  // Stylying comments
-  // The whole page should have a padding of 24 px. convert 24px to rem.
-  // The images can have a black border with a width of 2px.
-  // and then will have rounded corners with a radius of 8px.
-
+ 
   const handleClick = (userType: 'Vet' | 'Client') => {
     setUserType(userType);
     onNext();

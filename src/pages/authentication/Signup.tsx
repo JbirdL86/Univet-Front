@@ -31,7 +31,7 @@ const Signup: React.FC = () => {
         return (<Step3 userType={userType} onPrev={prevStep} onNext={nextStep} />);
       case 4:
         console.log('Step 4');
-        return (<Step4 onNext={nextStep} onPrev={prevStep} />);
+        return (<Step4 userType={userType} onDismiss={prevStep}/>);
       default:
         return (<div></div>);
     }

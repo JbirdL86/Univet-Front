@@ -15,12 +15,10 @@ interface Step3Props {
 
 const Signup: React.FC<Step3Props> = ({ onPrev, onNext, userType }) => {
   const [showPopover, setShowPopover] = useState(false);
-  //const [popoverEvent, setPopoverEvent] = useState<any>();
   const [isClicked, setIsClicked] = useState(false);
 
   const handlePresentPopover = (e: React.MouseEvent) => {
     e.preventDefault();
-   // setPopoverEvent(e.nativeEvent);
     setShowPopover(true);
     handleClick();
   };

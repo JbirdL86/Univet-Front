@@ -11,10 +11,10 @@ const Step4: React.FC<Step4Props> = ({ userType, onDismiss }) => {
   
   const [formData, setFormData] = useState({ 
       name: '', 
-      lastName: '', 
+      last_name: '', 
       email: '', 
       password: '', 
-      passwordConfirmation: '', 
+      password_confirmation: '', 
       type: userType, 
       address: '', 
       country: '', 
@@ -29,9 +29,11 @@ const Step4: React.FC<Step4Props> = ({ userType, onDismiss }) => {
 
   const handleChange = (e: CustomEvent) => {
     const { name, value } = e.target as HTMLInputElement;
+    const newValue = value || '';
+
     setFormData({
         ...formData,
-        [name]: value,
+        [name]: newValue,
     });
   };
 
@@ -44,7 +46,7 @@ const Step4: React.FC<Step4Props> = ({ userType, onDismiss }) => {
       return false;
     }
 
-    if (formData.password !== formData.passwordConfirmation) {
+    if (formData.password !== formData.password_confirmation) {
       setToastMessage('Passwords do not match.');
       setToastColor('danger');
       setShowToast(true);
@@ -64,10 +66,10 @@ const Step4: React.FC<Step4Props> = ({ userType, onDismiss }) => {
     const apiData = {
       user: {
         name: formData.name,
-        last_name: formData.lastName, // <-- Correcting case here
+        last_name: formData.last_name, // <-- Correcting case here
         email: formData.email,
         password: formData.password,
-        password_confirmation: formData.passwordConfirmation, // <-- Correcting case here
+        password_confirmation: formData.password_confirmation, // <-- Correcting case here
         type: formData.type, // <-- Correcting case here
         address: formData.address,
         country: formData.country,
@@ -124,7 +126,7 @@ const Step4: React.FC<Step4Props> = ({ userType, onDismiss }) => {
         </IonItem>
         <IonItem>
             <IonLabel position="floating">Last Name</IonLabel>
-            <IonInput name="lastName" value={formData.lastName} onIonChange={handleChange} />
+            <IonInput name="last_name" value={formData.last_name} onIonChange={handleChange} />
         </IonItem>
         <IonItem>
             <IonLabel position="floating">Email</IonLabel>
@@ -136,7 +138,7 @@ const Step4: React.FC<Step4Props> = ({ userType, onDismiss }) => {
         </IonItem>
         <IonItem>
             <IonLabel position="floating">Password confirmation</IonLabel>
-            <IonInput type="password" name="passwordConfirmation" value={formData.passwordConfirmation} onIonChange={handleChange} />
+            <IonInput type="password" name="password_confirmation" value={formData.password_confirmation} onIonChange={handleChange} />
         </IonItem>
         <IonItem>
             <IonLabel position="floating">Address</IonLabel>
@@ -150,20 +152,14 @@ const Step4: React.FC<Step4Props> = ({ userType, onDismiss }) => {
             <IonLabel position="floating">City</IonLabel>
             <IonInput name="city" value={formData.city} onIonChange={handleChange} />
         </IonItem>
-        {userType == 'Vet' ? (
-        <>
-          <IonItem>
-              <IonLabel position="floating">Specialty</IonLabel>
-              <IonInput name="specialty" value={formData.specialty} onIonChange={handleChange} />
-          </IonItem>
-        </>
-        )
-        :(
-        <>
-          <div></div>
-        </>
-        )
-        }
+        {userType === 'Vet' && (
+          <>
+            <IonItem>
+                <IonLabel position="floating">Specialty</IonLabel>
+                <IonInput name="specialty" value={formData.specialty} onIonChange={handleChange} />
+            </IonItem>
+          </>
+        )}
       </IonList>
 
       <IonButton expand="block" onClick={handleSubmit}>Submit</IonButton>
