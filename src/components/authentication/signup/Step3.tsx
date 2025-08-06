@@ -2,11 +2,10 @@ import { IonPage, IonPopover, IonRouterLink, IonText, IonContent, IonImg, IonBut
 import { useState } from 'react';
 import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
 import '../../../pages/authentication/Signup';
-import '../../../components/PopoverForm.css';
-import '../../PopoverForm';
+import './Step4';
 import client from '../../../assets/images/client.jpeg'
 import veterinarian from '../../../assets/images/veterinarian.jpeg'
-import PopoverForm from '../../../components/PopoverForm';
+import Step4 from './Step4';
 
 interface Step3Props {
   onNext: () => void;
@@ -62,9 +61,9 @@ const Signup: React.FC<Step3Props> = ({ onPrev, onNext, userType }) => {
           onDidDismiss= {handleDismissPopover}
           className="fullscreen-popover"
         >
-          <PopoverForm userType={userType} onDismiss={handleDismissPopover}></PopoverForm>
+          <Step4 userType={userType} onDismiss={handleDismissPopover}></Step4>
         </IonPopover>
-        <div className='bg-[#F0E4CE] flex flex-col items-center justify-around h-full w-full p-4'>
+        <div className='bg-[#F0E4CE] flex flex-col items-center justify-around h-screen w-full p-4'>
           {userType == 'Vet' ? (
             <>
             <div className='flex flex-col justify-around items-center flex-grow'>

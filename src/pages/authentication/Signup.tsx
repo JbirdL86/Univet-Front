@@ -1,8 +1,6 @@
-import { IonPage, IonPopover, IonRouterLink, IonText, IonContent, IonImg, IonButton } from '@ionic/react';
+import { IonPage, IonContent } from '@ionic/react';
 import { useState } from 'react';
 import './Signup.css';
-import '../../components/PopoverForm.css'
-import '../../components/PopoverForm'
 import Step1 from '../../components/authentication/signup/Step1';
 import Step2 from '../../components/authentication/signup/Step2';
 import Step3 from '../../components/authentication/signup/Step3';

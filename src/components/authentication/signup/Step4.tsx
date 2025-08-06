@@ -1,42 +1,183 @@
-import { IonText, IonContent, IonImg, IonButton } from '@ionic/react';
-import appLogo from '../../../assets/images/app-logo.jpg';
-import { useHistory } from 'react-router';
+import { IonItem, IonList, IonInput, IonLabel, IonContent, IonButton, useIonLoading, IonToast } from '@ionic/react';
+import React, { useState } from 'react';
+import './Step4.css'
 
-// Change the Step4Props interface to use the information gathered in previous steps
-// You can pass this information inside the Signup.tsx component and then pass it down to Step4 as props.
 interface Step4Props {
-  onNext: () => void;
-  onPrev: () => void;
+  userType: string;
+  onDismiss: () => void;
 }
 
-const Step4: React.FC<Step4Props> = ({ onNext, onPrev }) => {
-  // Here is where you are submitting the form.
-  // You don't need another file for the form, you can build the form directly in this component.
-  const history = useHistory();
+const Step4: React.FC<Step4Props> = ({ userType, onDismiss }) => {
+  
+  const [formData, setFormData] = useState({ 
+      name: '', 
+      lastName: '', 
+      email: '', 
+      password: '', 
+      passwordConfirmation: '', 
+      type: userType, 
+      address: '', 
+      country: '', 
+      city: '', 
+      specialty: '' 
+  });
+
+  const [present, dismiss] = useIonLoading();
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastColor, setToastColor] = useState('danger');
+
+  const handleChange = (e: CustomEvent) => {
+    const { name, value } = e.target as HTMLInputElement;
+    setFormData({
+        ...formData,
+        [name]: value,
+    });
+  };
+
+  const validateForm = () => {
+    
+    if (!formData.email || !formData.password || !formData.name) {
+      setToastMessage('Email, name, and password are required.');
+      setToastColor('danger');
+      setShowToast(true);
+      return false;
+    }
+
+    if (formData.password !== formData.passwordConfirmation) {
+      setToastMessage('Passwords do not match.');
+      setToastColor('danger');
+      setShowToast(true);
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSubmit = async () => {
+    console.log(formData.type)
+
+    if (!validateForm()) {
+      return;
+    }
+
+    const apiData = {
+      user: {
+        name: formData.name,
+        last_name: formData.lastName, // <-- Correcting case here
+        email: formData.email,
+        password: formData.password,
+        password_confirmation: formData.passwordConfirmation, // <-- Correcting case here
+        type: formData.type, // <-- Correcting case here
+        address: formData.address,
+        country: formData.country,
+        city: formData.city,
+        speciality: formData.specialty // <-- Correcting spelling here
+      }
+    };
+    
+    try {
+      await present({
+          message: 'Creating user...',
+          duration: 0,
+      });
+
+      const response = await fetch('http://localhost:3001/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(apiData),
+      });
+
+      await dismiss();
+
+      if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Something went wrong');
+      }
+        
+      const result = await response.json();
+      console.log('User created successfully:', result);
+
+      setToastMessage('Registration successful! Popover will dismiss now.');
+      setToastColor('success');
+      setShowToast(true);
+
+      setTimeout(onDismiss, 2000);
+
+    } catch (error: any) {
+        await dismiss();
+        console.error('Error creating user:', error.message);
+        setToastMessage(`Registration failed: ${error.message}`);
+        setToastColor('danger');
+        setShowToast(true);
+    }
+  };
 
   return (
-    <IonContent fullscreen>
-      <div className='bg-[#F0E4CE] flex flex-col items-center justify-evenly h-full w-full p-4'>
-        <IonImg src={appLogo} className='w-full mx-auto' />
-        <div className='flex flex-col items-center justify-center w-full'>
-          <IonButton className={'w-full signButton'} onClick={onNext}>
-            Create an Account
-          </IonButton>
-          <div className='myText flex items-center justify-center w-full'>
-            <div className='flex flex-col w-full items-center justify-center line'></div>
-            <IonText>Or</IonText>
-            <div className='flex flex-col w-full items-center justify-center line'></div>
-          </div>
-          <IonButton
-            className={'googleButton w-full'}
-            onClick={() => history.push('/login')}
-          >
-            Already have an account? Log in
-          </IonButton>
-        </div>
-      </div>
+    <IonContent>
+      <IonList>
+        <IonItem>
+            <IonLabel position="floating">Name</IonLabel>
+            <IonInput name="name" value={formData.name} onIonChange={handleChange} />
+        </IonItem>
+        <IonItem>
+            <IonLabel position="floating">Last Name</IonLabel>
+            <IonInput name="lastName" value={formData.lastName} onIonChange={handleChange} />
+        </IonItem>
+        <IonItem>
+            <IonLabel position="floating">Email</IonLabel>
+            <IonInput type="email" name="email" value={formData.email} onIonChange={handleChange} />
+        </IonItem>
+        <IonItem>
+            <IonLabel position="floating">Password</IonLabel>
+            <IonInput type="password" name="password" value={formData.password} onIonChange={handleChange} />
+        </IonItem>
+        <IonItem>
+            <IonLabel position="floating">Password confirmation</IonLabel>
+            <IonInput type="password" name="passwordConfirmation" value={formData.passwordConfirmation} onIonChange={handleChange} />
+        </IonItem>
+        <IonItem>
+            <IonLabel position="floating">Address</IonLabel>
+            <IonInput name="address" value={formData.address} onIonChange={handleChange} />
+        </IonItem>
+        <IonItem>
+            <IonLabel position="floating">Country</IonLabel>
+            <IonInput name="country" value={formData.country} onIonChange={handleChange} />
+        </IonItem>
+        <IonItem>
+            <IonLabel position="floating">City</IonLabel>
+            <IonInput name="city" value={formData.city} onIonChange={handleChange} />
+        </IonItem>
+        {userType == 'Vet' ? (
+        <>
+          <IonItem>
+              <IonLabel position="floating">Specialty</IonLabel>
+              <IonInput name="specialty" value={formData.specialty} onIonChange={handleChange} />
+          </IonItem>
+        </>
+        )
+        :(
+        <>
+          <div></div>
+        </>
+        )
+        }
+      </IonList>
+
+      <IonButton expand="block" onClick={handleSubmit}>Submit</IonButton>
+      <IonButton expand="block" fill="clear" onClick={onDismiss}>Cancel</IonButton>
+
+      <IonToast
+          isOpen={showToast}
+          onDidDismiss={() => setShowToast(false)}
+          message={toastMessage}
+          duration={3000}
+          color={toastColor}
+      />
     </IonContent>
-  )
+  );
 }
 
 export default Step4;

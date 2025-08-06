@@ -17,7 +17,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
           <IonButton className={'w-full signButton'} onClick={() => onNext()}>
             Create an Account
           </IonButton>
-          <div className='myText flex items-center justify-center w-full'>
+          <div className='myText flex items-center justify-evenly w-full'>
             <div className='flex flex-col w-full items-center justify-center line'></div>
             <IonText>Or</IonText>
             <div className='flex flex-col w-full items-center justify-center line'></div>
