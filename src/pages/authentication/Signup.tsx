@@ -1,6 +1,5 @@
 import { IonPage, IonPopover, IonRouterLink, IonText, IonContent, IonImg, IonButton } from '@ionic/react';
 import { useState } from 'react';
-import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
 import './Signup.css';
 import '../../components/PopoverForm.css'
 import '../../components/PopoverForm'
@@ -11,6 +10,7 @@ import Step4 from '../../components/authentication/signup/Step4';
 
 const Signup: React.FC = () => {
   const [formStep, setFormStep] = useState(1);
+  const [userType, setUserType] = useState('Vet');
 
   const nextStep = () => {
     setFormStep(formStep + 1);
@@ -27,10 +27,10 @@ const Signup: React.FC = () => {
         return (<Step1 onNext={nextStep} />);
       case 2:
         console.log('Step 2');
-        return (<Step2 onNext={nextStep} />);
+        return (<Step2 setUserType={setUserType} onPrev={prevStep} onNext={nextStep} />);
       case 3:
         console.log('Step 3');
-        return (<Step3 onNext={nextStep} />);
+        return (<Step3 userType={userType} onPrev={prevStep} onNext={nextStep} />);
       case 4:
         console.log('Step 4');
         return (<Step4 onNext={nextStep} onPrev={prevStep} />);

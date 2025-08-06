@@ -1,4 +1,4 @@
-import { IonText, IonContent, IonImg, IonButton } from '@ionic/react';
+import { IonText, IonRouterLink, IonContent, IonImg, IonButton } from '@ionic/react';
 import appLogo from '../../../assets/images/app-logo.jpg';
 import { useHistory } from 'react-router';
 
@@ -26,7 +26,7 @@ const Step1: React.FC<Step1Props> = ({ onNext }) => {
             className={'googleButton w-full'}
             onClick={() => history.push('/login')}
           >
-            Already ahve an account? Log in
+          <IonText>Already have an account? <IonRouterLink>Log in</IonRouterLink></IonText>
           </IonButton>
         </div>
       </div>

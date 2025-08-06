@@ -2,14 +2,19 @@ import { IonItem, IonList, IonInput, IonLabel, IonContent, IonButton, useIonLoad
 import React, { useState } from 'react';
 import './PopoverForm.css'
 
-const PopoverForm: React.FC<{ onDismiss: () => void }> = ({ onDismiss }) => {
+interface Step4Props {
+    userType: string;
+    onDismiss: () => void;
+}
+
+const PopoverForm: React.FC<Step4Props> = ({ userType, onDismiss }) => {
     const [formData, setFormData] = useState({ 
         name: '', 
         lastName: '', 
         email: '', 
         password: '', 
         passwordConfirmation: '', 
-        type: '', 
+        type: userType, 
         address: '', 
         country: '', 
         city: '', 
@@ -45,16 +50,24 @@ const PopoverForm: React.FC<{ onDismiss: () => void }> = ({ onDismiss }) => {
     };
 
     const handleSubmit = async () => {
+                    console.log(formData.type)
+
         if (!validateForm()) {
             return;
         }
 
         const apiData = {
             user: {
-                ...formData,
-                password_confirmation: formData.passwordConfirmation,
-                last_name: formData.lastName,
-                speciality: formData.specialty
+                name: formData.name,
+                last_name: formData.lastName, // <-- Correcting case here
+                email: formData.email,
+                password: formData.password,
+                password_confirmation: formData.passwordConfirmation, // <-- Correcting case here
+                type: formData.type, // <-- Correcting case here
+                address: formData.address,
+                country: formData.country,
+                city: formData.city,
+                speciality: formData.specialty // <-- Correcting spelling here
             }
         };
         
@@ -119,10 +132,6 @@ const PopoverForm: React.FC<{ onDismiss: () => void }> = ({ onDismiss }) => {
                 <IonItem>
                     <IonLabel position="floating">Password confirmation</IonLabel>
                     <IonInput type="password" name="passwordConfirmation" value={formData.passwordConfirmation} onIonChange={handleChange} />
-                </IonItem>
-                <IonItem>
-                    <IonLabel position="floating">Type</IonLabel>
-                    <IonInput name="type" value={formData.type} onIonChange={handleChange} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Address</IonLabel>

@@ -31,7 +31,7 @@ const Step4: React.FC<Step4Props> = ({ onNext, onPrev }) => {
             className={'googleButton w-full'}
             onClick={() => history.push('/login')}
           >
-            Already ahve an account? Log in
+            Already have an account? Log in
           </IonButton>
         </div>
       </div>

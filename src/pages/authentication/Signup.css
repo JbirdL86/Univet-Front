@@ -23,7 +23,8 @@
 }
 
 .myText {
-    margin: 30px;
+    margin-top: 50px;
+    margin-bottom: 50px;
     --color: #2B4D3F;
     font-weight: 400;
 }

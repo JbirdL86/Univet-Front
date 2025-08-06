@@ -1,14 +1,15 @@
-import { IonText, IonContent, IonImg, } from '@ionic/react';
+import { IonText, IonContent, IonButton, IonImg } from '@ionic/react';
 import vetImage from '../../../assets/images/veterinarian.jpeg';
 import clientImage from '../../../assets/images/client.jpeg';
 import { useHistory } from 'react-router';
 
 interface Step2Props {
   onNext: () => void;
-  setUserType: (userType: 'veterinarian' | 'client') => void;
+  onPrev: () => void;
+  setUserType: (userType: 'Vet' | 'Client') => void;
 }
 
-const Step2: React.FC<Step2Props> = ({ onNext, setUserType }) => {
+const Step2: React.FC<Step2Props> = ({ onPrev,onNext, setUserType }) => {
   // When you click on veterinarian image, you should set a state inside Signup.tsx component to indicate that the user is a veterinarian.
   // When you click on client image, you should set a state inside Signup.tsx component to indicate that the user is a client.
 
@@ -20,18 +21,30 @@ const Step2: React.FC<Step2Props> = ({ onNext, setUserType }) => {
   // The images can have a black border with a width of 2px.
   // and then will have rounded corners with a radius of 8px.
 
+  const handleClick = (userType: 'Vet' | 'Client') => {
+    setUserType(userType);
+    onNext();
+  }
+
+  const handleBack = () => {
+    onPrev();
+  }
+
   return (
     <IonContent fullscreen>
       <div className='bg-[#F0E4CE] flex flex-col items-center justify-evenly h-full w-full p-4'>
-        <IonImg src={vetImage} className='w-full' />
+        <IonImg src={vetImage} className='w-full cursor-pointer border-solid border-4 rounded-lg border-[#2B4D3F]' onClick={ () => handleClick('Vet') } />
         <div className='flex flex-col items-center justify-center w-full'>
-          <div className='myText flex items-center justify-center w-full'>
-            <div className='flex flex-col w-full items-center justify-center line'></div>
+          <div className='flex items-center justify-center w-full'>
+            <div className='flex flex-col w-full items-center justify-center line font-bold'></div>
             <IonText>Or</IonText>
             <div className='flex flex-col w-full items-center justify-center line'></div>
           </div>
         </div>
-        <IonImg src={clientImage} className='w-full' />
+        <IonImg src={clientImage} className='w-full cursor-pointer border-solid border-4 rounded-lg border-[#2B4D3F]' onClick={ () => handleClick('Client') } />
+        <div className='flex flex-col items-center justify-center w-full'>
+          <IonText className='color-[#284d3f]'>Already have an account?<IonButton fill='clear' className='flex flex-col' onClick={handleBack}> Go back</IonButton></IonText>
+        </div>
       </div>
     </IonContent>
   )
